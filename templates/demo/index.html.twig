@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DemoController!{% endblock %}
+
+{% block body %}
+    <h1>L'heure actuelle est : {{ 'now'|format_datetime('full', 'short', locale='fr') }}</h1>
+
+{% endblock %}
