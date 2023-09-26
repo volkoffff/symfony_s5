@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
@@ -33,14 +34,27 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Groups(['movie:read', 'actor:read', 'category:read'])]
+    #[Assert\All([
+        new Assert\NotBlank(message: 'Le titre ne dois pas être vide'),
+        new Assert\Length(min: 5, minMessage: 'Titre du film trop court '),
+    ])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['movie:read'])]
+    #[Assert\All([
+        new Assert\NotBlank(message: 'La description ne dois pas être vide'),
+        new Assert\Length(min: 50, max: 255, minMessage: 'Faites une description plus précise', maxMessage: 'Description trop longue'),
+    ])]
     private ?string $description = null;
 
     #[ORM\Column]
     #[Groups(['movie:read'])]
+    #[Assert\All([
+        new Assert\NotBlank(message: 'La durée ne dois pas être vide'),
+        new Assert\NotNull,
+        new Assert\Positive,
+    ])]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
