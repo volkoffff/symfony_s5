@@ -4,8 +4,8 @@ namespace App\Service;
 
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
-class SlugService {
-
+class SlugService
+{
     public function generateSlug($text)
     {
         $slugger = new AsciiSlugger();

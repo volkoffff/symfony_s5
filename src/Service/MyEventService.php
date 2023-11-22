@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -7,7 +8,6 @@ use App\Event\MyCustomEvent;
 class MyEventService
 {
     private $eventDispatcher;
-
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
