@@ -25,6 +25,7 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['movie:read', 'category:read', 'actor:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
@@ -44,11 +45,16 @@ class Movie
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 1000)]
     #[Groups(['movie:read'])]
     #[Assert\All([
         new Assert\NotBlank(message: 'La description ne dois pas être vide'),
-        new Assert\Length(min: 50, max: 255, minMessage: 'Faites une description plus précise', maxMessage: 'Description trop longue'),
+        new Assert\Length(
+            min: 50,
+            max: 1000,
+            minMessage: 'Faites une description plus précise',
+            maxMessage: 'Description trop longue'
+        ),
     ])]
     private ?string $description = null;
 
@@ -56,13 +62,14 @@ class Movie
     #[Groups(['movie:read'])]
     #[Assert\All([
         new Assert\NotBlank(message: 'La durée ne dois pas être vide'),
-        new Assert\NotNull,
-        new Assert\Positive,
+        new Assert\NotNull(),
+        new Assert\Positive(),
     ])]
     #[ApiFilter(RangeFilter::class)]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['movie:read'])]
     private ?\DateTimeInterface $releaseDate = null;
 
     public function __construct()
