@@ -6,7 +6,6 @@ use App\Entity\Actor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-;
 
 class ActorFixture extends Fixture implements DependentFixtureInterface
 {
@@ -22,7 +21,7 @@ class ActorFixture extends Fixture implements DependentFixtureInterface
             $actor->setLastName($lastName[rand(0, 9)]);
 
 
-            $actor->SetNationalite($this->getReference('nationalite_' .rand(1, 10)));
+            $actor->SetNationalite($this->getReference('nationalite_' . rand(1, 10)));
 
             $manager->persist($actor);
             $this->addReference('actor_' . $i, $actor); // expose l'objet à l'extérieur de la classe pour les liaisons avec Movie
@@ -30,10 +29,10 @@ class ActorFixture extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
     }
-public function getDependencies()
-{
-    return [
-      NationaliteFixture::class
-    ];
-}
+    public function getDependencies()
+    {
+        return [
+          NationaliteFixture::class
+        ];
+    }
 }

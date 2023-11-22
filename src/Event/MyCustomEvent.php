@@ -2,7 +2,7 @@
 
 namespace App\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class MyCustomEvent extends Event
 {
@@ -10,11 +10,11 @@ class MyCustomEvent extends Event
 
     public function __construct($data)
     {
-    $this->data = $data;
+        $this->data = $data;
     }
 
     public function getData()
     {
-    return $this->data;
+        return $this->data;
     }
 }
