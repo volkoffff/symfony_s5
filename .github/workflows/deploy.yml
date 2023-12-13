@@ -22,5 +22,4 @@ jobs:
             cd wr506
             git pull
             composer install
-            php bin/console doctrine:database:create
             php bin/console c:c
