@@ -19,7 +19,7 @@ jobs:
           script: |
             cd public_html/
             git clone https://github.com/volkoffff/symfony_s5.git
-            cd wr506
+            cd symfony_s5
             git pull
             composer install
             php bin/console c:c
