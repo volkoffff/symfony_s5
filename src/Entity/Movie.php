@@ -38,37 +38,44 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Groups(['movie:read', 'actor:read', 'category:read'])]
-    #[Assert\All([
-        new Assert\NotBlank(message: 'Le titre ne dois pas être vide'),
-        new Assert\Length(min: 5, minMessage: 'Titre du film trop court '),
-    ])]
+//    #[Assert\All([
+//        new Assert\NotBlank(message: 'Le titre ne dois pas être vide'),
+//        new Assert\Length(min: 1, minMessage: 'Titre du film trop court '),
+//    ])]
+    #[Assert\NotBlank(message: 'Le titre ne doît pas être vide')]
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
     #[ORM\Column(length: 1000)]
     #[Groups(['movie:read'])]
-    #[Assert\All([
-        new Assert\NotBlank(message: 'La description ne dois pas être vide'),
-        new Assert\Length(
-            min: 50,
-            max: 1000,
-            minMessage: 'Faites une description plus précise',
-            maxMessage: 'Description trop longue'
-        ),
-    ])]
+    #[Assert\NotBlank(message: 'La description ne doît pas être vide')]
+    #[Assert\Length(min: 10, minMessage:'la derscription doit être plus précise(plus longue)')]
+//    #[Assert\All([
+//        new Assert\NotBlank(message: 'La description ne dois pas être vide'),
+//        new Assert\Length(
+//            min: 50,
+//            max: 1000,
+//            minMessage: 'Faites une description plus précise',
+//            maxMessage: 'Description trop longue'
+//        ),
+//    ])]
     private ?string $description = null;
 
     #[ORM\Column]
     #[Groups(['movie:read'])]
-    #[Assert\All([
-        new Assert\NotBlank(message: 'La durée ne dois pas être vide'),
-        new Assert\NotNull(),
-        new Assert\Positive(),
-    ])]
+    #[Assert\NotBlank(message: 'La durée ne doît pas être vide')]
+    #[Assert\Positive(message:'la durée doit être positive')]
+    #[Assert\NotNull(message:'la durée ne pas doit être vide')]
+//    #[Assert\All([
+//        new Assert\NotBlank(message: 'La durée ne dois pas être vide'),
+//        new Assert\NotNull(),
+//        new Assert\Positive(),
+//    ])]
     #[ApiFilter(RangeFilter::class)]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: 'La date ne doît pas être vide')]
     #[Groups(['movie:read'])]
     private ?\DateTimeInterface $releaseDate = null;
 
