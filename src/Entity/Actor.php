@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,6 +30,7 @@ class Actor
     #[Groups(['movie:read', 'actor:read'])]
     #[Assert\NotBlank(message: 'Le prenom ne doît pas être vide')]
     #[Assert\Length(min: 1, minMessage:'Le prenom doit contenir plus d\'un charctère')]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
