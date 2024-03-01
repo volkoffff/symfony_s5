@@ -101,7 +101,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
         return $this;
     }
+    public function updatePassword(string $newPlainPassword, UserPasswordHasherInterface $passwordHasher): static
+    {
+        $hashedPassword = $passwordHasher->hashPassword($this, $newPlainPassword);
+        $this->password = $hashedPassword;
 
+        return $this;
+    }
     /**
      * @see UserInterface
      */
