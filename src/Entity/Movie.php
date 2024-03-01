@@ -30,6 +30,7 @@ class Movie
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
     #[Groups(['movie:read'])]
+    #[Assert\NotBlank(message: 'Le film doit être forcément relié à une cathégorie')]
     private ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
@@ -38,10 +39,6 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Groups(['movie:read', 'actor:read', 'category:read'])]
-//    #[Assert\All([
-//        new Assert\NotBlank(message: 'Le titre ne dois pas être vide'),
-//        new Assert\Length(min: 1, minMessage: 'Titre du film trop court '),
-//    ])]
     #[Assert\NotBlank(message: 'Le titre ne doît pas être vide')]
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
@@ -50,28 +47,13 @@ class Movie
     #[Groups(['movie:read'])]
     #[Assert\NotBlank(message: 'La description ne doît pas être vide')]
     #[Assert\Length(min: 10, minMessage:'la derscription doit être plus précise(plus longue)')]
-//    #[Assert\All([
-//        new Assert\NotBlank(message: 'La description ne dois pas être vide'),
-//        new Assert\Length(
-//            min: 50,
-//            max: 1000,
-//            minMessage: 'Faites une description plus précise',
-//            maxMessage: 'Description trop longue'
-//        ),
-//    ])]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 1000)]
     #[Groups(['movie:read'])]
+    #[ApiFilter(RangeFilter::class)]
     #[Assert\NotBlank(message: 'La durée ne doît pas être vide')]
     #[Assert\Positive(message:'la durée doit être positive')]
-    #[Assert\NotNull(message:'la durée ne pas doit être vide')]
-//    #[Assert\All([
-//        new Assert\NotBlank(message: 'La durée ne dois pas être vide'),
-//        new Assert\NotNull(),
-//        new Assert\Positive(),
-//    ])]
-    #[ApiFilter(RangeFilter::class)]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

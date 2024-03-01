@@ -18,6 +18,8 @@ class UserFixture extends Fixture
         foreach (range(1, 5) as $i) {
             $user = new User();
             $user -> setEmail('email' . $i . '@gmail.com');
+            $user -> setFirstName('Jhon');
+            $user -> setLastName('Doe');
             $user -> setPassword($this->passwordHasherInterface->hashPassword(
                 $user,
                 'password'

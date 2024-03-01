@@ -45,6 +45,7 @@ class Actor
 
     #[ORM\ManyToOne(inversedBy: 'actor')]
     #[Groups(['actor:read'])]
+    #[Assert\NotBlank(message: 'L\'acteur doit être forcément relié à une nationalité')]
     private ?Nationalite $nationalite = null;
 
     public function __construct()
