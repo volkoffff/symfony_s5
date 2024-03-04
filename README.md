@@ -1,14 +1,34 @@
-# symfony_s5
+# Symfony Movie App API
+## Requirements
+- The usual Symfony application requirements.
+## Installation
+Download Composer and use the composer binary installed on your computer to run these commands:
 
-Partie 1 
-Proposez "la requête" permettant d'ajouter un acteur et sa nationalité (faire un fichier md dans votre repository avec la solution)
+# you can clone the code repository and install its dependencies
+$ git clone https://github.com/lokinosuke/wr506d.git my_project
+```
+$ cd my_project/
+$ composer install
+# create the database
+$ php bin/console doctrine:database:create
+$ php bin/console make:migration
+$ php bin/console doctrine:migrations:migrate
+# and that's it, you're all set!
+```
+## Usage
+There's no need to configure anything before running the application. There are 2 different ways of running this application depending on your needs:
 
-{
-  "firstName": "string",
-  "lastName": "string",
-  "movies": [
-    "/api/movies/41"
-  ],
-  "nationalite": "/api/nationalites/11"
-}
+Option 1. Download Symfony CLI and run this command:
+```
+$ cd my_project/
+$ symfony server:start
+```
+Then access the application in your browser at the given URL (http://127.0.0.1:8000/ by default).
 
+Option 2. Use a web server like Nginx or Apache to run the application (read the documentation about configuring a web server for Symfony).
+
+On your local machine, you can run this command to use the built-in PHP web server:
+```
+$ cd my_project/
+$ php -S localhost:8000 -t public/
+```
